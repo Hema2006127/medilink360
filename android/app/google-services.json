@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "585549166091",
+    "project_id": "medlink360-fd568",
+    "storage_bucket": "medlink360-fd568.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585549166091:android:c619099a7c3c2372ff390e",
+        "android_client_info": {
+          "package_name": "com.example.medlink360"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585549166091-n20a8sfchm4481jqpoc9bq9pk6j6k7fp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medlink360",
+            "certificate_hash": "4c81e400ac7ebd0ff3f67fde1ab4164af09f3e0c"
+          }
+        },
+        {
+          "client_id": "585549166091-q7onrk32v0ni9neau8sgl52gtrbrlkfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpWvp-JHtZ_20ePy49wv5qYJzUARZ6_0g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585549166091-q7onrk32v0ni9neau8sgl52gtrbrlkfm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "585549166091-3u5ivahiq400t3vc0nm4bp4f6to89pk8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medlink360"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
