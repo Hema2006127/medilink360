@@ -13,6 +13,7 @@ class PatientsListScreen extends StatefulWidget {
 
 class _PatientsListScreenState extends State<PatientsListScreen> with SingleTickerProviderStateMixin {
   int _selectedFilter = 0;
+  String _searchQuery = '';
   final List<String> _filters = ['All', 'Recent', 'Critical', 'New'];
 
   final List<Map<String, dynamic>> _patients = [
@@ -79,6 +80,27 @@ class _PatientsListScreenState extends State<PatientsListScreen> with SingleTick
     )..forward();
   }
 
+  List<Map<String, dynamic>> get _filteredPatients {
+    List<Map<String, dynamic>> filtered = _patients;
+
+    String filterName = _filters[_selectedFilter];
+    if (filterName == 'Critical') {
+      filtered = filtered.where((p) => p['status'] == 'Critical').toList();
+    } else if (filterName == 'New') {
+      filtered = filtered.where((p) => p['status'] == 'New').toList();
+    } else if (filterName == 'Recent') {
+      filtered = filtered.where((p) => p['status'] == 'Follow-up' || p['status'] == 'Stable').toList();
+    }
+
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered.where((p) =>
+          p['name'].toString().toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          p['id'].toString().toLowerCase().contains(_searchQuery.toLowerCase())).toList();
+    }
+
+    return filtered;
+  }
+
   @override
   void dispose() {
     _animCtrl.dispose();
@@ -110,7 +132,7 @@ class _PatientsListScreenState extends State<PatientsListScreen> with SingleTick
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
-                    '${_patients.length} Patients',
+                    '${_filteredPatients.length} Patients',
                     style: AppTextStyles.h3.copyWith(fontSize: 16, color: AppColors.text2),
                   ),
                 ),
@@ -161,6 +183,12 @@ class _PatientsListScreenState extends State<PatientsListScreen> with SingleTick
           border: Border.all(color: AppColors.border),
         ),
         child: TextField(
+          onChanged: (value) {
+            setState(() {
+              _searchQuery = value;
+            });
+            _animCtrl.forward(from: 0);
+          },
           decoration: InputDecoration(
             hintText: 'Search patients by name or ID...',
             hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.text3),
@@ -217,11 +245,25 @@ class _PatientsListScreenState extends State<PatientsListScreen> with SingleTick
   }
 
   Widget _buildPatientsList() {
+    final displayedPatients = _filteredPatients;
+    
+    if (displayedPatients.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 40),
+        child: Center(
+          child: Text(
+            'No patients found',
+            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.text3),
+          ),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        children: List.generate(_patients.length, (index) {
-          final patient = _patients[index];
+        children: List.generate(displayedPatients.length, (index) {
+          final patient = displayedPatients[index];
           
           return AnimatedBuilder(
             animation: _animCtrl,

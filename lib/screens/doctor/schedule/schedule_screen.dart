@@ -108,7 +108,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> with SingleTickerProvid
         ],
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 70), // Avoid bottom nav
+        padding: const EdgeInsets.only(bottom: 120), // Avoid bottom nav
         child: FloatingActionButton(
           onPressed: () {},
           backgroundColor: AppColors.primary,
